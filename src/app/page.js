@@ -1,95 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+function Register() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <div className="container text-center mt-5 " style={{ maxWidth: "360px" }}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="fw-bold ">Register</h2>
+        <div className="mb-2">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="User Name"
+            {...register("userName", { required: true, maxLength: 20 })}
+          />
+          {errors.userName && <p>Enter a user Name (max 20 characters)</p>}
+        </div>
+        <div className="mb-2">
+          <input
+            className="form-control"
+            type="email"
+            placeholder="Email"
+            {...register("email", { required: true })}
+          />
+          {errors.email && <p>Enter an email</p>}
+        </div>
+        <div className="mb-2">
+          <input
+            className="form-control"
+            type="password"
+            placeholder="Password"
+            {...register("password", { required: true })}
+          />
+          {errors.password && <p>Enter a password</p>}
+        </div>
+        <div className="mb-2">
+          <button className="btn btn-outline-dark ">Sign In</button>
+        </div>
+      </form>
+    </div>
+  );
+}
 
 export default function Home() {
+  useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle");
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <Register />
+    </>
   );
 }
